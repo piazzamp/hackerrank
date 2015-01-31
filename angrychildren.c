@@ -53,6 +53,14 @@ int* linearsort(int *ray){
   }
   return sorted;
 }
+int lessthan(const void * p1, const void * p2){
+	// requisite comparison function for qsort
+	// take in two untyped pointers and return
+	// a real number whose sign determined sort order
+	// when p1 < p2, lessthan will return a negative number!
+   return *(int*)p1 - *(int*)p2;
+	// must typecast and dereference, need more stars
+	}
 
 int* calunf(int *ray, int length){
   int i, min = MAX_VAL;
@@ -81,8 +89,9 @@ int main() {
     for(i = 0;i < N;i++)
         scanf("%d",candies + i); //candies is a pointer to item 0 in array, i sticks them in their spots
     
-    int *sortedcan = linearsort(candies);
-    int unfairness = calunf(sortedcan, K);
+    // int *sortedcan = linearsort(candies);
+	qsort(candies, N, sizeof(int), lessthan); // in-place quicksort from stdlib
+    int unfairness = calunf(candies, K);
     /*int p;
     for (p=0; p < MAX && sortedcan[p] != NULL; p++){
       printf("%d, ", sortedcan[p]);
